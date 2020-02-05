@@ -1,9 +1,5 @@
 import React from 'react';
-import { Text,View, TouchableOpacity, TextInput } from 'react-native';
-import {TextInputLayout} from 'rn-textinputlayout';
-import PasswordInputText from 'react-native-hide-show-password-input';
-
-
+import { Text,View, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
 export default class Login extends React.Component{
     static navigationOptions = ({ navigation }) => ({
@@ -18,39 +14,72 @@ export default class Login extends React.Component{
 		},
 		headerBackTitle: '',
 		headerTintColor: '#000',
-    }) 
+	})
 
-    render(){
-        return(
-            <View>
-                {/* <TouchableOpacity onPress = { () => this.props.navigation.navigate('Dashboard')}>
-                    <Text style = {{marginTop:'30%'}}> Sample data Login.js </Text>
-                </TouchableOpacity> */}
+	constructor(){
+		super();
+	this.state = {
+		email: '',
+		password: ''
+	 }
+	}
 
-                    {/* <View >
-							<TextInputLayout
-								focusColor={'#B9B6B5'}
-				 			>
-						<TextInput autoCapitalize = 'none'
-							autoCorrect={false}
-							placeholder="Username or Email"
-							// onChangeText={(username) => this.setState({ username })}
-						/></TextInputLayout>
-						
-						<PasswordInputText autoCapitalize = 'none'
-							autoCorrect={false}
-							tintColor = '#B9B6B5'
-							// secureTextEntry={this.state.hide}
-							// onChangeText={(password) => this.setState({ password })}
-						/>
-					</View> */}
-                <TextInputLayout >
-                    <TextInput
-                        placeholder={'Password'}
-                        secureTextEntry={true}
-                    />
-                </TextInputLayout>
-            </View>
-        )
-    }
-}
+	 handleEmail = (text) => {
+		this.setState({ email: text })
+	 }
+	 handlePassword = (text) => {
+		this.setState({ password: text })
+	 }
+	 login = (email, pass) => {
+		alert('email: ' + email + ' password: ' + pass)
+	 }
+	 render() {
+		return (
+		   <View style = {styles.container}>
+			  <TextInput style = {styles.input}
+				 underlineColorAndroid = "transparent"
+				 placeholder = "Email"
+				 placeholderTextColor = "#9a73ef"
+				 autoCapitalize = "none"
+				 onChangeText = {this.handleEmail}/>
+			  
+			  <TextInput style = {styles.input}
+				 underlineColorAndroid = "transparent"
+				 placeholder = "Password"
+				 placeholderTextColor = "#9a73ef"
+				 autoCapitalize = "none"
+				 onChangeText = {this.handlePassword}/>
+			  
+			  <TouchableOpacity
+				 style = {styles.submitButton}
+				 onPress = {
+					() => this.login(this.state.email, this.state.password)
+				 }>
+				 <Text style = {styles.submitButtonText}> Submit </Text>
+			  </TouchableOpacity>
+		   </View>
+		)
+	 }
+  }
+
+  const styles = StyleSheet.create({
+	container: {
+	   paddingTop: 23
+	},
+	input: {
+	   margin: 15,
+	   height: 40,
+	   borderColor: '#7a42f4',
+	   borderWidth: 1
+	},
+	submitButton: {
+	   backgroundColor: '#7a42f4',
+	   padding: 10,
+	   margin: 15,
+	   height: 40,
+	},
+	submitButtonText:{
+	   color: 'white'
+	}
+ })
+    
